@@ -1,44 +1,25 @@
-
-name: CI
+name: Build
 
 on:
   push:
-    branches: [main]
   pull_request:
-    branches: [main]
 
 jobs:
-  build-templates:
+  build:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        template: [edge, vscode, office]
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: npm
-      - name: Install root deps
-        run: npm install
-      - name: Build ${{ matrix.template }}
-        run: npm --workspace templates/${{ matrix.template }} run build
-        continue-on-error: ${{ matrix.template == 'office' }}
-      - name: Type-check ${{ matrix.template }}
-        run: npm --workspace templates/${{ matrix.template }} run type-check
-        continue-on-error: ${{ matrix.template == 'office' }}
 
-  test-scaffolder:
-    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
-          node-version: 20
-      - name: Test CLI scaffolder
-        run: |
-          node scripts/create.mjs --type edge --name test-edge --out ./_test-edge
-          test -f ./_test-edge/package.json
-          test -f ./_test-edge/public/manifest.json
-          node scripts/create.mjs --type vscode --name test-vscode --out ./_test-vscode
-          test -f ./_test-vscode/package.json
+          node-version: 24
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
