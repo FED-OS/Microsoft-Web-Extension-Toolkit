@@ -1,0 +1,51 @@
+{
+  "name": "vscode-extension-template",
+  "version": "1.0.0",
+  "description": "Boilerplate for a Visual Studio Code extension with TypeScript, esbuild, and a React webview.",
+  "type": "module",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "myExtension.hello",
+        "title": "Hello World",
+        "category": "My Extension"
+      },
+      {
+        "command": "myExtension.openPanel",
+        "title": "Open Webview Panel",
+        "category": "My Extension"
+      }
+    ]
+  },
+  "activationEvents": [],
+  "scripts": {
+    "vscode:prepublish": "npm run build",
+    "build": "npm run type-check && node esbuild.config.mjs --production",
+    "dev": "node esbuild.config.mjs --watch",
+    "type-check": "tsc --noEmit",
+    "lint": "eslint src --ext ts --max-warnings 0",
+    "format": "prettier --write \"src/**/*.{ts,tsx,css}\"",
+    "package": "npm run build && npx @vscode/vsce package",
+    "publish": "npm run build && npx @vscode/vsce publish"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.0",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@types/vscode": "^1.85.0",
+    "@typescript-eslint/eslint-plugin": "^7.15.0",
+    "@typescript-eslint/parser": "^7.15.0",
+    "@vscode/vsce": "^2.30.0",
+    "esbuild": "^0.21.5",
+    "eslint": "^8.57.0",
+    "prettier": "^3.3.3",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "typescript": "^5.5.3"
+  }
+}

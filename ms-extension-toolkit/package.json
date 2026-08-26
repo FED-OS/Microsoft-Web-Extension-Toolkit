@@ -1,0 +1,43 @@
+{
+  "name": "ms-extension-toolkit",
+  "version": "1.0.0",
+  "description": "A boilerplate toolkit for building any Microsoft extension — Edge browser, VS Code, and Office Web Add-ins. TypeScript + Vite + React out of the box.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Your Name",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/ms-extension-toolkit.git"
+  },
+  "keywords": [
+    "microsoft",
+    "edge-extension",
+    "vscode-extension",
+    "office-addin",
+    "boilerplate",
+    "template",
+    "manifest-v3",
+    "typescript",
+    "react",
+    "vite"
+  ],
+  "scripts": {
+    "create": "node scripts/create.mjs",
+    "build:edge": "npm --workspace templates/edge run build",
+    "build:vscode": "npm --workspace templates/vscode run build",
+    "build:office": "npm --workspace templates/office run build",
+    "build:all": "npm run build:edge && npm run build:vscode && npm run build:office",
+    "lint": "npm --workspaces --if-present run lint"
+  },
+  "workspaces": [
+    "templates/edge",
+    "templates/vscode",
+    "templates/office"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "allowScripts": {
+    "esbuild@0.21.5": true
+  }
+}
