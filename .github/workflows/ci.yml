@@ -22,16 +22,16 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Set up Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: 24
           cache: npm
           cache-dependency-path: package-lock.json
 
-      - name: Install dependencies
+      - name: Install root dependencies
         run: npm ci
 
       - name: Build ${{ matrix.template }}
@@ -47,24 +47,24 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Set up Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: 24
           cache: npm
           cache-dependency-path: package-lock.json
 
-      - name: Install dependencies
+      - name: Install root dependencies
         run: npm ci
 
       - name: Test CLI scaffolder
         shell: bash
         run: |
-          set -e
+          set -euo pipefail
 
-          rm -rf ./_test-edge ./_test-vscode
+          rm -rf _test-edge _test-vscode
 
           node scripts/create.mjs \
             --type edge \
