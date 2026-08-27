@@ -2,11 +2,9 @@ name: CI
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
   pull_request:
-    branches:
-      - main
+    branches: [main]
 
 jobs:
   build-templates:
@@ -15,23 +13,18 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        template:
-          - edge
-          - vscode
-          - office
+        template: [edge, vscode, office]
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v5
+      - uses: actions/checkout@v4
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v6
+      - uses: actions/setup-node@v4
         with:
-          node-version: 24
+          node-version: 20
           cache: npm
           cache-dependency-path: package-lock.json
 
-      - name: Install root dependencies
+      - name: Install root deps
         run: npm ci
 
       - name: Build ${{ matrix.template }}
@@ -46,37 +39,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v5
+      - uses: actions/checkout@v4
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v6
+      - uses: actions/setup-node@v4
         with:
-          node-version: 24
-          cache: npm
-          cache-dependency-path: package-lock.json
+          node-version: 20
 
-      - name: Install root dependencies
+      - name: Install root deps
         run: npm ci
 
       - name: Test CLI scaffolder
-        shell: bash
         run: |
-          set -euo pipefail
-
-          rm -rf _test-edge _test-vscode
-
-          node scripts/create.mjs \
-            --type edge \
-            --name test-edge \
-            --out ./_test-edge
-
+          node scripts/create.mjs --type edge --name test-edge --out ./_test-edge
           test -f ./_test-edge/package.json
           test -f ./_test-edge/public/manifest.json
 
-          node scripts/create.mjs \
-            --type vscode \
-            --name test-vscode \
-            --out ./_test-vscode
-
+          node scripts/create.mjs --type vscode --name test-vscode --out ./_test-vscode
           test -f ./_test-vscode/package.json
