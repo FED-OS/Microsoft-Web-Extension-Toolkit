@@ -1,5 +1,9 @@
 # 🛠️ Microsoft Extension Toolkit
 
+<a href='https://ko-fi.com/YOUR_USERNAME' target='_blank'>
+    <img height='36' style='border:0px;height:36px;' src='https://ko-fi.com/img/githubbutton_sm.svg' border='0' alt='Buy Me a Coffee at ko-fi.com' />
+</a>
+
 > A boilerplate toolkit for building **any** Microsoft extension — Microsoft Edge browser extensions, Visual Studio Code extensions, and Office Web Add-ins. Production-ready templates with TypeScript, Vite, and React out of the box.
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
